@@ -1,0 +1,122 @@
+ lcl/interfaces/gtk3/gtk3bindings/lazgtk3.pas | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
+
+diff --git a/lcl/interfaces/gtk3/gtk3bindings/lazgtk3.pas b/lcl/interfaces/gtk3/gtk3bindings/lazgtk3.pas
+index 5045e13..003e641 100644
+--- a/lcl/interfaces/gtk3/gtk3bindings/lazgtk3.pas
++++ b/lcl/interfaces/gtk3/gtk3bindings/lazgtk3.pas
+@@ -8093,7 +8093,7 @@ type
+   end;
+ 
+ 
+-
++  {$ifdef GtkPlug}
+   PPGtkPlug = ^PGtkPlug;
+   PGtkPlug = ^TGtkPlug;
+ 
+@@ -8127,6 +8127,7 @@ type
+     _gtk_reserved3: procedure; cdecl;
+     _gtk_reserved4: procedure; cdecl;
+   end;
++  {$endif}
+ 
+   PPGtkPolicyType = ^PGtkPolicyType;
+   PGtkPolicyType = ^TGtkPolicyType;
+@@ -9194,6 +9195,7 @@ type
+     _gtk_reserved4: procedure; cdecl;
+   end;
+ 
++  {$ifdef GtkSocket}
+   PPGtkSocket = ^PGtkSocket;
+   PGtkSocket = ^TGtkSocket;
+ 
+@@ -9223,6 +9225,7 @@ type
+     _gtk_reserved3: procedure; cdecl;
+     _gtk_reserved4: procedure; cdecl;
+   end;
++  {$endif}
+ 
+   PPGtkSpinButton = ^PGtkSpinButton;
+   PGtkSpinButton = ^TGtkSpinButton;
+@@ -12135,12 +12138,14 @@ function gtk_paper_size_new_custom(name: Pgchar; display_name: Pgchar; width: gd
+ function gtk_paper_size_new_from_key_file(key_file: PGKeyFile; group_name: Pgchar; error: PPGError): PGtkPaperSize; cdecl; external;
+ function gtk_paper_size_new_from_ppd(ppd_name: Pgchar; ppd_display_name: Pgchar; width: gdouble; height: gdouble): PGtkPaperSize; cdecl; external;
+ function gtk_parse_args(argc: Pgint; argv: PPPgchar): gboolean; cdecl; external;
++{$ifdef GtkPlug}
+ function gtk_plug_get_embedded(plug: PGtkPlug): gboolean; cdecl; external;
+ function gtk_plug_get_id(plug: PGtkPlug): TWindow; cdecl; external;
+ function gtk_plug_get_socket_window(plug: PGtkPlug): PGdkWindow; cdecl; external;
+ function gtk_plug_get_type: TGType; cdecl; external;
+ function gtk_plug_new(socket_id: TWindow): PGtkPlug; cdecl; external;
+ function gtk_plug_new_for_display(display: PGdkDisplay; socket_id: TWindow): PGtkPlug; cdecl; external;
++{$endif}
+ function gtk_print_context_create_pango_context(context: PGtkPrintContext): PPangoContext; cdecl; external;
+ function gtk_print_context_create_pango_layout(context: PGtkPrintContext): PPangoLayout; cdecl; external;
+ function gtk_print_context_get_cairo_context(context: PGtkPrintContext): Pcairo_t; cdecl; external;
+@@ -12434,10 +12439,12 @@ function gtk_size_group_get_mode(size_group: PGtkSizeGroup): TGtkSizeGroupMode;
+ function gtk_size_group_get_type: TGType; cdecl; external;
+ function gtk_size_group_get_widgets(size_group: PGtkSizeGroup): PGSList; cdecl; external;
+ function gtk_size_group_new(mode: TGtkSizeGroupMode): PGtkSizeGroup; cdecl; external;
++{$ifdef gtk_socket}
+ function gtk_socket_get_id(socket_: PGtkSocket): TWindow; cdecl; external;
+ function gtk_socket_get_plug_window(socket_: PGtkSocket): PGdkWindow; cdecl; external;
+ function gtk_socket_get_type: TGType; cdecl; external;
+ function gtk_socket_new: PGtkSocket; cdecl; external;
++{$endif}
+ function gtk_spin_button_get_adjustment(spin_button: PGtkSpinButton): PGtkAdjustment; cdecl; external;
+ function gtk_spin_button_get_digits(spin_button: PGtkSpinButton): guint; cdecl; external;
+ function gtk_spin_button_get_numeric(spin_button: PGtkSpinButton): gboolean; cdecl; external;
+@@ -13925,8 +13932,10 @@ procedure gtk_paned_set_position(paned: PGtkPaned; position: gint); cdecl; exter
+ procedure gtk_paper_size_free(size: PGtkPaperSize); cdecl; external;
+ procedure gtk_paper_size_set_size(size: PGtkPaperSize; width: gdouble; height: gdouble; unit_: TGtkUnit); cdecl; external;
+ procedure gtk_paper_size_to_key_file(size: PGtkPaperSize; key_file: PGKeyFile; group_name: Pgchar); cdecl; external;
++{$ifdef gtk_plug}
+ procedure gtk_plug_construct(plug: PGtkPlug; socket_id: TWindow); cdecl; external;
+ procedure gtk_plug_construct_for_display(plug: PGtkPlug; display: PGdkDisplay; socket_id: TWindow); cdecl; external;
++{$endif}
+ procedure gtk_print_context_set_cairo_context(context: PGtkPrintContext; cr: Pcairo_t; dpi_x: gdouble; dpi_y: gdouble); cdecl; external;
+ procedure gtk_print_operation_cancel(op: PGtkPrintOperation); cdecl; external;
+ procedure gtk_print_operation_draw_page_finish(op: PGtkPrintOperation); cdecl; external;
+@@ -14107,7 +14116,9 @@ procedure gtk_size_group_add_widget(size_group: PGtkSizeGroup; widget: PGtkWidge
+ procedure gtk_size_group_remove_widget(size_group: PGtkSizeGroup; widget: PGtkWidget); cdecl; external;
+ procedure gtk_size_group_set_ignore_hidden(size_group: PGtkSizeGroup; ignore_hidden: gboolean); cdecl; external;
+ procedure gtk_size_group_set_mode(size_group: PGtkSizeGroup; mode: TGtkSizeGroupMode); cdecl; external;
++{$ifdef gtk_socket}
+ procedure gtk_socket_add_id(socket_: PGtkSocket; window: TWindow); cdecl; external;
++{$endif}
+ procedure gtk_spin_button_configure(spin_button: PGtkSpinButton; adjustment: PGtkAdjustment; climb_rate: gdouble; digits: guint); cdecl; external;
+ procedure gtk_spin_button_get_increments(spin_button: PGtkSpinButton; step: Pgdouble; page: Pgdouble); cdecl; external;
+ procedure gtk_spin_button_get_range(spin_button: PGtkSpinButton; min: Pgdouble; max: Pgdouble); cdecl; external;
+@@ -25422,7 +25433,7 @@ function TGtkPaperSize.get_paper_sizes(include_custom: gboolean): PGList; cdecl;
+ begin
+   Result := LazGtk3.gtk_paper_size_get_paper_sizes(include_custom);
+ end;
+-
++{$ifdef gtk_plug}
+ function TGtkPlug.new(socket_id: TWindow): PGtkPlug; cdecl;
+ begin
+   Result := LazGtk3.gtk_plug_new(socket_id);
+@@ -25457,6 +25468,7 @@ function TGtkPlug.get_socket_window: PGdkWindow; cdecl;
+ begin
+   Result := LazGtk3.gtk_plug_get_socket_window(@self);
+ end;
++{$endif}
+ 
+ function TGtkPrintContext.create_pango_context: PPangoContext; cdecl;
+ begin
+@@ -26978,6 +26990,7 @@ begin
+   LazGtk3.gtk_size_group_set_mode(@self, mode);
+ end;
+ 
++{$ifdef gtk_socket}
+ function TGtkSocket.new: PGtkSocket; cdecl;
+ begin
+   Result := LazGtk3.gtk_socket_new();
+@@ -26997,6 +27010,7 @@ function TGtkSocket.get_plug_window: PGdkWindow; cdecl;
+ begin
+   Result := LazGtk3.gtk_socket_get_plug_window(@self);
+ end;
++{$endif}
+ 
+ function TGtkSpinButton.new(adjustment: PGtkAdjustment; climb_rate: gdouble; digits: guint): PGtkSpinButton; cdecl;
+ begin
