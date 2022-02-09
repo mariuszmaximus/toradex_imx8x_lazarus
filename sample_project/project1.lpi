@@ -58,7 +58,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <Libraries Value="D:\mariusz\pulpit\gity\iscan3_lazarus\lib_imx8\"/>
+      <Libraries Value="..\lib"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <CodeGeneration>
@@ -77,9 +77,6 @@
     </Linking>
     <Other>
       <CustomOptions Value="-dgtk_socket_disable"/>
-      <OtherDefines Count="1">
-        <Define0 Value="gtk_socket_disable"/>
-      </OtherDefines>
     </Other>
   </CompilerOptions>
   <Debugging>
